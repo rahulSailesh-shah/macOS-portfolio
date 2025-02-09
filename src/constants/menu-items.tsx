@@ -2,6 +2,16 @@ import { MenuItem } from "@/types";
 
 export const menuItems: MenuItem[] = [
   {
+    id: "home",
+    name: "Home",
+    content: (
+      <div>
+        <h1 className="text-2xl font-bold mb-4">Rahul Shah</h1>
+        <p>Here are some of my recent projects...</p>
+      </div>
+    ),
+  },
+  {
     id: "projects",
     name: "Projects",
     content: (
@@ -23,7 +33,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "about",
-    name: "About Me",
+    name: "About",
     content: (
       <div>
         <h1 className="text-2xl font-bold mb-4">Hey, Im Kristen!</h1>

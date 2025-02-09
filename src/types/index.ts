@@ -1,5 +1,5 @@
 export interface MenuItem {
-  id: "projects" | "experience" | "about" | "contact";
+  id: "home" | "projects" | "experience" | "about" | "contact";
   name: string;
   content: React.ReactNode;
 }
