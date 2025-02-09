@@ -9,6 +9,7 @@ export interface WindowProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  initialPosition: { x: number; y: number };
 }
 
 export interface Position {
