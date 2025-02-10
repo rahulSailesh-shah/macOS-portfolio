@@ -12,6 +12,7 @@ const FOLDER_HEIGHT = 95;
 const INITIAL_OFFSET = { x: 10, y: 48 };
 
 export default function Home() {
+  const [isMounted, setIsMounted] = useState(false);
   const [activeWindow, setActiveWindow] = useState<MenuItem["id"] | null>(
     "home"
   );
@@ -20,28 +21,17 @@ export default function Home() {
     x: number;
     y: number;
   }>({
-    x: window.innerWidth / 2 - 400,
-    y: window.innerHeight / 2 - 200,
+    x: 0,
+    y: 0,
   });
 
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
-
-  const toggleWindow = (id: MenuItem["id"]): void => {
-    if (activeWindow === id) {
-      setActiveWindow(null);
-    } else {
-      setActiveWindow(id);
-      setWindowPosition({
-        x: window.innerWidth / 2 - 400,
-        y: window.innerHeight / 2 - 200,
-      });
-    }
-  };
-
-  const getInitialPosition = (index: number) => ({
-    x: INITIAL_OFFSET.x,
-    y: index * FOLDER_HEIGHT,
-  });
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowPosition({
+      x: window.innerWidth / 2 - 500,
+      y: window.innerHeight / 2 - 350,
+    });
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -51,8 +41,29 @@ export default function Home() {
     }
   }, [isDarkMode]);
 
+  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+
+  const toggleWindow = (id: MenuItem["id"]): void => {
+    if (activeWindow === id) {
+      setActiveWindow(null);
+    } else {
+      setActiveWindow(id);
+      setWindowPosition({
+        x: window.innerWidth / 2 - 500,
+        y: window.innerHeight / 2 - 350,
+      });
+    }
+  };
+
+  const getInitialPosition = (index: number) => ({
+    x: INITIAL_OFFSET.x,
+    y: index * FOLDER_HEIGHT,
+  });
+
+  if (!isMounted) return null;
+
   return (
-    <div className="relative min-h-screen bg-[url('/light.svg')] dark:bg-[url('/dark.svg')] bg-cover bg-center bg-no-repeat transition-all duration-300">
+    <div className="relative min-h-screen bg-[url('/light.jpg')] dark:bg-[url('/dark.jpg')] bg-cover bg-center bg-no-repeat transition-all duration-100">
       {/* Blur Overlay */}
       <div className="absolute inset-0 bg-white/30 dark:bg-black/30 backdrop-blur-sm z-0"></div>
 
@@ -61,7 +72,7 @@ export default function Home() {
         <MenuBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
         {/* Desktop Icons */}
-        <div className="pt-12 pl-8 flex flex-col space-y-6">
+        <div className="pt-12 pr-8 flex flex-col space-y-6 items-end">
           {menuItems.map((item, index) => (
             <Folder
               key={item.id}
@@ -72,7 +83,7 @@ export default function Home() {
             />
           ))}
 
-          <Resume initialPosition={getInitialPosition(5)} />
+          <Resume initialPosition={getInitialPosition(4)} />
         </div>
 
         {/* Windows */}

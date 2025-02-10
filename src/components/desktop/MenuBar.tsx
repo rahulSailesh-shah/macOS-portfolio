@@ -35,7 +35,7 @@ export const MenuBar: React.FC<MenuBarProps> = ({
   }, []);
 
   return (
-    <div className="bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm h-8 fixed top-0 left-0 right-0 border-b border-gray-200 dark:border-gray-700 flex items-center px-4">
+    <div className="bg-white dark:bg-[#282828] backdrop-blur-sm h-8 fixed top-0 left-0 right-0 border-b border-gray-200 dark:border-gray-700 flex items-center px-4">
       {/* Left side: macOS style window controls */}
       <div className="flex space-x-2">
         <div className="w-3 h-3 rounded-full bg-red-500 dark:bg-red-600" />
@@ -44,7 +44,7 @@ export const MenuBar: React.FC<MenuBarProps> = ({
       </div>
 
       {/* Right side: Date and Time */}
-      <div className="ml-auto text-gray-600 dark:text-gray-300 text-sm font-semibold justify-center items-center flex space-x-8">
+      <div className="ml-auto text-gray-600 dark:text-gray-300 text-sm justify-center items-center flex space-x-8">
         {/* Dark Mode Toggle */}
         <button
           onClick={toggleDarkMode}

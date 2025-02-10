@@ -54,33 +54,34 @@ export const Window: React.FC<WindowProps> = ({
   return (
     <div
       ref={windowRef}
-      className="fixed bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg shadow-xl w-[800px] max-h-[80vh] border dark:border-gray-700"
+      className={`fixed bg-gray-100  dark:bg-[#121212] backdrop-blur-sm rounded-lg shadow-xl border dark:border-[#575757] ${
+        title === "Home" ? "w-[900px]" : "w-[1100px]"
+      }`}
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
         position: "absolute",
+        maxHeight: "85vh",
+        overflow: "auto",
       }}
     >
       {/* Draggable Header */}
       <div
-        className="cursor-move bg-gray-100 dark:bg-gray-900 rounded-t-lg border-b border-gray-200 dark:border-gray-700 p-3 flex items-center"
+        className="cursor-grab bg-white dark:bg-[#282828] rounded-t-lg border-b border-gray-200 dark:border-[#575757] p-2 flex items-center sticky top-0"
         onMouseDown={startDrag}
       >
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 cursor-default">
           <button
             onClick={onClose}
-            className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors"
+            className="w-3.5 h-3.5 rounded-full bg-red-500 hover:bg-red-600 transition-colors"
           />
-          <div className="w-3 h-3 rounded-full bg-yellow-500" />
-          <div className="w-3 h-3 rounded-full bg-green-500" />
-        </div>
-        <div className="mx-auto font-medium text-gray-600 dark:text-gray-300">
-          {title}
+          <div className="w-3.5 h-3.5 rounded-full bg-yellow-500" />
+          <div className="w-3.5 h-3.5 rounded-full bg-green-500" />
         </div>
       </div>
 
-      {/* Window Content */}
-      <div className="p-6 overflow-auto max-h-[calc(80vh-4rem)] text-gray-800 dark:text-gray-200">
+      {/* Window Content Container */}
+      <div className="p-8 text-gray-600 dark:text-gray-200 text-lg">
         {children}
       </div>
     </div>

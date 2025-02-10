@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Lato, Vujahday_Script } from "next/font/google"; // Import Vujahday Script
+import { Jost, Vujahday_Script, DM_Serif_Display } from "next/font/google"; // Import Vujahday Script
 import "./globals.css";
 
-const lato = Lato({
+const jost = Jost({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-lato",
+  variable: "--font-jost",
 });
 
 const vujahday = Vujahday_Script({
@@ -14,8 +14,14 @@ const vujahday = Vujahday_Script({
   variable: "--font-vujahday",
 });
 
+const dmSerif = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: ["400"], // Only one weight available for Vujahday Script
+  variable: "--font-dm-serif",
+});
+
 export const metadata: Metadata = {
-  title: "Your Portfolio",
+  title: "Rahul Shah | Software Engineer",
   description: "Professional portfolio website",
 };
 
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lato.variable}  ${vujahday.variable} antialiased font-sans`}
+        className={`${jost.variable} ${dmSerif.variable} ${vujahday.variable} antialiased font-sans`}
       >
         {children}
       </body>
