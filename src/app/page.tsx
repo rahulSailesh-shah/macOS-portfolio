@@ -25,12 +25,31 @@ export default function Home() {
     y: 0,
   });
 
-  useEffect(() => {
-    setIsMounted(true);
-    setWindowPosition({
+  const calculateInitialPosition = () => {
+    const width = window.innerWidth;
+    if (width < 768) {
+      // mobile
+      return {
+        x: 10,
+        y: 60,
+      };
+    }
+    return {
       x: window.innerWidth / 2 - 500,
       y: window.innerHeight / 2 - 350,
-    });
+    };
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowPosition(calculateInitialPosition());
+
+    const handleResize = () => {
+      setWindowPosition(calculateInitialPosition());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -48,17 +67,24 @@ export default function Home() {
       setActiveWindow(null);
     } else {
       setActiveWindow(id);
-      setWindowPosition({
-        x: window.innerWidth / 2 - 500,
-        y: window.innerHeight / 2 - 350,
-      });
+      setWindowPosition(calculateInitialPosition());
     }
   };
 
-  const getInitialPosition = (index: number) => ({
-    x: INITIAL_OFFSET.x,
-    y: index * FOLDER_HEIGHT,
-  });
+  const getInitialPosition = (index: number) => {
+    const width = window.innerWidth;
+    if (width < 768) {
+      // mobile
+      return {
+        x: (index % 3) * (width / 3),
+        y: Math.floor(index / 3) * FOLDER_HEIGHT + INITIAL_OFFSET.y,
+      };
+    }
+    return {
+      x: INITIAL_OFFSET.x,
+      y: index * FOLDER_HEIGHT,
+    };
+  };
 
   if (!isMounted) return null;
 
@@ -67,12 +93,12 @@ export default function Home() {
       {/* Blur Overlay */}
       <div className="absolute inset-0 bg-white/30 dark:bg-black/30 backdrop-blur-sm z-0"></div>
 
-      {/* Content (Ensuring it's above the blur effect) */}
+      {/* Content */}
       <div className="relative z-10">
         <MenuBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
         {/* Desktop Icons */}
-        <div className="pt-12 pr-8 flex flex-col space-y-6 items-end">
+        <div className="pt-12 pr-8 flex flex-wrap md:flex-col md:space-y-6 items-center md:items-end justify-center md:justify-start gap-4 md:gap-0">
           {menuItems.map((item, index) => (
             <Folder
               key={item.id}
