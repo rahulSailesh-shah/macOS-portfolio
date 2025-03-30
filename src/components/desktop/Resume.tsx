@@ -14,7 +14,7 @@ export const Resume: React.FC<ResumeProps> = ({
 
   const handleClick = () => {
     if (!isDragging) {
-      window.open("/resume.pdf", "_blank");
+      window.open("/Rahul_Shah_SDE_Resume.pdf", "_blank");
     }
   };
 
